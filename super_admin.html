@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Супер-Админ | Панель</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; background-color: #f4f4f4; }
+    h2, h3 { color: #333; }
+    .panel { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-weight: bold; margin-bottom: 5px; }
+    input, select, button { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+    button { background-color: #2d6cdf; color: white; font-weight: bold; cursor: pointer; }
+    button:hover { background-color: #1e4eb1; }
+    #registerMessage { margin-top: 10px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h2>🛡 Панель супер-админа</h2>
+    <div id="welcomeMessage"></div>
+
+    <div id="registrationPanel" style="margin-top: 30px;">
+      <h3>📋 Регистрация нового сотрудника</h3>
+      <form id="registerForm" onsubmit="registerUser(); return false;">
+        <div class="form-group">
+          <label for="newLogin">Логин:</label>
+          <input type="text" id="newLogin" required>
+        </div>
+
+        <div class="form-group">
+          <label for="newPassword">Пароль:</label>
+          <input type="password" id="newPassword" required>
+        </div>
+
+        <div class="form-group">
+          <label for="newName">Имя сотрудника:</label>
+          <input type="text" id="newName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="newRole">Роль:</label>
+          <select id="newRole">
+            <option value="teacher">Учитель</option>
+            <option value="school">Школа</option>
+            <option value="admin">Админ</option>
+            <option value="super_admin">Супер-админ</option>
+            <option value="ministry">Министерство</option>
+          </select>
+        </div>
+
+        <button type="submit">✅ Добавить</button>
+      </form>
+
+      <div id="registerMessage"></div>
+    </div>
+  </div>
+
+  <script>
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const welcome = document.getElementById("welcomeMessage");
+    const panel = document.getElementById("registrationPanel");
+
+    if (!currentUser || currentUser.role !== "super_admin") {
+      document.body.innerHTML = "<h2>🚫 Доступ запрещён. Только для супер-админов.</h2>";
+    } else {
+      welcome.innerHTML = `<p>Добро пожаловать, <strong>${currentUser.name}</strong> 👑</p>`;
+      panel.style.display = "block";
+    }
+
+    function registerUser() {
+      const login = document.getElementById("newLogin").value.trim();
+      const password = document.getElementById("newPassword").value.trim();
+      const name = document.getElementById("newName").value.trim();
+      const role = document.getElementById("newRole").value;
+
+      let users = JSON.parse(localStorage.getItem("userList")) || [];
+
+      if (users.some(u => u.login === login)) {
+        document.getElementById("registerMessage").innerText = "❌ Логин уже существует!";
+        return;
+      }
+
+      const newUser = { login, password, name, role };
+      users.push(newUser);
+      localStorage.setItem("userList", JSON.stringify(users));
+
+      document.getElementById("registerMessage").innerText = "✅ Сотрудник успешно добавлен!";
+      document.getElementById("registerForm").reset();
+    }
+  </script>
+</body>
+</html>

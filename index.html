@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система Оценки Качества Образования</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+    <!-- Блок переключения темы -->
+    <div id="themeContainer">
+        <i id="themeToggle" class="fas fa-sun" title="Переключить тему"></i>
+        <span id="themeText"></span>
+    </div>
+
+<!-- Контейнер входа -->
+<div class="login-container" id="loginContainer">
+    <img src="https://i.pinimg.com/736x/77/ec/d3/77ecd33979c0c8a3299efcf9620cbad4.jpg" 
+         alt="Логотип" class="logo" />
+
+    <h1>Система Оценки Качества Образования</h1>
+
+    <!-- Сообщение об ошибке сервера -->
+    <div class="server-error" id="serverError" style="display:none;"></div>
+
+    <div class="form-container">
+       <form id="loginForm" novalidate>
+            <!-- Логин -->
+            <div class="input-group">
+                <label for="username">
+                    <i class="fas fa-user"></i> Логин:
+                </label>
+                <input type="text" id="username" name="username" placeholder="Введите ваш логин" required aria-label="Логин">
+                <div class="error-message" id="usernameError" style="display:none;">Пожалуйста, введите корректный логин.</div>
+            </div>
+
+            <!-- Пароль -->
+            <div class="input-group">
+                <label for="password">
+                    <i class="fas fa-lock"></i> Пароль:
+                </label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Введите ваш пароль" required aria-label="Пароль">
+                    <span class="toggle-password" id="togglePassword" title="Показать/скрыть пароль">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+                <div class="error-message" id="passwordError" style="display:none;">Пароль должен содержать минимум 6 символов.</div>
+            </div>
+
+            <!-- Кнопка входа -->
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Войти в систему
+            </button>
+
+            <!-- Сообщение об успехе -->
+            <div class="success-message" id="successMessage" style="display:none;">
+                <i class="fas fa-check-circle"></i> Вход выполнен успешно! Перенаправляем...
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Панель управления -->
+<div class="dashboard-container" id="dashboardContainer" style="display: none;">
+    <div class="dashboard-header">
+        <div class="user-info">
+            <div class="user-name" id="userName">
+                Иван Иванов <span class="role-tag student-tag" id="userRoleTag">Ученик</span>
+            </div>
+            <div class="user-role" id="userRoleDetails">Школа №15, 10-А класс, г. Москва</div>
+        </div>
+        <button class="logout-btn" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Выйти
+        </button>
+    </div>
+    
+    <div class="dashboard-content">
+        <h2 class="section-title">
+            <i class="fas fa-tachometer-alt"></i> Панель управления
+        </h2>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon" style="color: var(--student);">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="stat-value" id="statStudents">0</div>
+                <div class="stat-label">Учеников в системе</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="color: var(--teacher);">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="stat-value" id="statTeachers">0</div>
+                <div class="stat-label">Учителей в системе</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="color: var(--school);">
+                    <i class="fas fa-school"></i>
+                </div>
+                <div class="stat-value" id="statSchools">0</div>
+                <div class="stat-label">Образовательных учреждений</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="color: var(--accent);">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-value" id="statRating">0</div>
+                <div class="stat-label">Средний рейтинг качества</div>
+            </div>
+        </div>
+        
+        <div class="role-specific" id="roleSpecificContent">
+            <!-- Контент для конкретной роли -->
+        </div>
+        
+        <div class="hierarchy">
+            <h3 class="hierarchy-title">
+                <i class="fas fa-sitemap"></i> Иерархия системы образования
+            </h3>
+            <div class="org-structure">
+                <div class="org-level">
+                    <div class="org-item">
+                        <div class="org-name">Министерство образования</div>
+                        <div class="org-role">Федеральный уровень</div>
+                    </div>
+                </div>
+                
+                <div class="org-level">
+                    <div class="org-item">
+                        <div class="org-name">Департамент образования</div>
+                        <div class="org-role">Региональный уровень</div>
+                    </div>
+                </div>
+                
+                <div class="org-level">
+                    <div class="org-item">
+                        <div class="org-name" id="userSchool">Школа №15</div>
+                        <div class="org-role" id="userRolePosition">Учебное заведение</div>
+                    </div>
+                </div>
+                
+                <div class="org-level">
+                    <div class="org-item">
+                        <div class="org-name" id="userClass">10-А класс</div>
+                        <div class="org-role" id="userPosition">Ученик</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  const login = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  try {
+    const response = await fetch("https://raw.githubusercontent.com/AiSytculs/jsons/main/users.json"); // Обнови ссылку на свою
+    if (!response.ok) throw new Error("Ошибка загрузки JSON");
+
+    const users = await response.json();
+    const user = users.find(u => u.login === login && u.password === password);
+
+    if (user) {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      document.getElementById('loginContainer').style.display = 'none';
+      document.getElementById('dashboardContainer').style.display = 'block';
+      showUserDashboard(user);
+    } else {
+      document.getElementById('serverError').style.display = 'block';
+      document.getElementById('serverError').textContent = 'Неверный логин или пароль.';
+    }
+
+  } catch (err) {
+    document.getElementById('serverError').style.display = 'block';
+    document.getElementById('serverError').textContent = 'Ошибка загрузки данных.';
+    console.error("Fetch error:", err);
+  }
+});
+
+function showUserDashboard(user) {
+  document.getElementById('userName').innerHTML = `${user.name} <span class="role-tag" id="userRoleTag">${getRoleLabel(user.role)}</span>`;
+  document.getElementById('userRoleDetails').textContent =
+    user.role === "student" ? `${user.school}, ${user.className} класс` :
+    user.role === "teacher" ? `${user.subject}, ${user.experience}` :
+    user.role === "school" ? `${user.name}` : "";
+
+  const roleContent = document.getElementById('roleSpecificContent');
+  roleContent.innerHTML = "";
+
+  switch (user.role) {
+    case "student":
+      roleContent.innerHTML = `
+        <h3>📚 Добро пожаловать, ${user.name}!</h3>
+        <p>Ваш рейтинг: ${user.rating}</p>
+        <p>Класс: ${user.className}</p>
+        <p>Школа: ${user.school}</p>
+      `;
+      break;
+    // ➕ Можно добавить другие роли тут
+  }
+
+  if (user.role === "super_admin") {
+    window.location.href = "test.html";
+  }
+}
+
+function getRoleLabel(role) {
+  switch (role) {
+    case "student": return "Ученик";
+    case "teacher": return "Учитель";
+    case "school": return "Школа";
+    case "admin": return "Админ";
+    case "super_admin": return "Супер-Админ";
+    case "ministry": return "Министерство";
+    default: return "Пользователь";
+  }
+}
+</script>
+
+<script src="script.js"></script>
+<script src="locolhost.js"></script>
+<!-- Переместите весь JS-код в отдельный <script> тег -->
+</body>
+</html>

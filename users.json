@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "login": "student",
+    "password": "student123",
+    "name": "Иван Петров",
+    "role": "student",
+    "roleName": "Ученик",
+    "school": "Школа №15",
+    "schoolId": 15,
+    "className": "10-А класс",
+    "city": "Москва",
+    "rating": 4.5
+  },
+  {
+    "id": 2,
+    "login": "teacher",
+    "password": "teacher123",
+    "name": "Мария Сидорова",
+    "role": "teacher",
+    "roleName": "Учитель",
+    "school": "Школа №15",
+    "schoolId": 15,
+    "subject": "Математика",
+    "city": "Москва",
+    "experience": "8 лет"
+  },
+  {
+    "id": 3,
+    "login": "school",
+    "password": "school123",
+    "name": "Школа №15",
+    "role": "school",
+    "roleName": "Администрация школы",
+    "schoolId": 15,
+    "students": 850,
+    "teachers": 45,
+    "city": "Москва",
+    "rating": 4.7
+  },
+  {
+    "id": 4,
+    "login": "ministry",
+    "password": "ministry123",
+    "name": "Министерство образования",
+    "role": "ministry",
+    "roleName": "Министерство",
+    "schools": 215,
+    "region": "Центральный федеральный округ"
+  },
+  {
+    "id": 5,
+    "login": "admin",
+    "password": "admin123",
+    "name": "Администратор системы",
+    "role": "admin",
+    "roleName": "Системный администратор"
+  },
+  {
+    "id": 6,
+    "login": "super_admin",
+    "password": "super_admin123",
+    "name": "Супер Администратор",
+    "role": "super_admin",
+    "roleName": "Супер Администратор",
+    "permissions": "Полные права на всю систему"
+  }
+]

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Кабинет ученика</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>👨‍🎓 Кабинет ученика</h1>
+        <button onclick="logout()">Выйти</button>
+    </header>
+
+    <section>
+        <h2>Добро пожаловать, Иван Петров!</h2>
+        <p>Класс: 10-А</p>
+        <p>Школа: Школа №15</p>
+        <p>Город: Москва</p>
+        <p>Средний рейтинг: <strong>4.5</strong></p>
+
+        <div class="actions">
+            <button onclick="alert('Открыть расписание')">📅 Расписание</button>
+            <button onclick="alert('Посмотреть оценки')">📝 Оценки</button>
+            <button onclick="alert('Обратная связь с учителем')">✉️ Связь с учителем</button>
+        </div>
+    </section>
+
+    <footer>
+        © 2025 Система Оценки Качества Образования
+    </footer>
+
+    <script>
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = "index.html"; // Возврат на страницу входа
+        }
+    </script>
+</body>
+</html>
